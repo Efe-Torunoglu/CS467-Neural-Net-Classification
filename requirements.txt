@@ -1,5 +1,7 @@
 librosa==0.10.2.post1
 matplotlib==3.9.1
-numpy<2.0.0
+numpy==2.0.1
 scikit_learn==1.5.1
+sounddevice==0.4.7
 tensorflow==2.17.0
+tensorflow_intel==2.17.0
