@@ -1,0 +1,28 @@
+<!doctype html>
+<html>
+    <head>
+        <title>Predict Genres</title>
+    </head>
+    <body>
+        <h1>Select an audio file to predict its top 3 genres</h1>
+        <form method="POST" action="" enctype="multipart/form-data">
+            <p><input type="file" name="file"></p>
+            <p><input type="submit" value="Predict"></p>
+        </form>
+        <ul>
+            {% for row in genres %}
+                <li>{{ row[0] }}: {{row[1]}}</li>
+            {% endfor %}
+        </ul>
+        {% for file in files %}
+            <audio controls>
+                <source src="{{ url_for('serve_audio', filename=file) }}">
+            </audio>
+        {% endfor %}
+    </body>
+</html>
+
+<!--
+# To write this code, we followed the tutorial by Miguel Grinberg:
+#    blog.miguelgrinberg.com/post/handling-file-uploads-with-flask
+-->
