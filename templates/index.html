@@ -1,24 +1,50 @@
-<!doctype html>
-<html>
+<!DOCTYPE html>
+<html lang="en">
     <head>
-        <title>Predict Genres</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="icon" type="image/png" href="{{ url_for('static', filename='images/icons8-music-32.png') }}">
+        <title>Music Genre Classifier</title>
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
     </head>
     <body>
-        <h1>Select an audio file to predict its top 3 genres</h1>
+        <div class="site-container">
+        <h1>
+            Music Genre Classifier
+            <img src="{{ url_for('static', filename='images/icons8-music-96.png') }}" alt="Music Icon" style="vertical-align: middle;">
+        </h1>
+        <h2>Upload an audio file to view its top-3 predicted music genres</h2>
+        <h3>(Supported genres: blues, classical, country, disco, hiphop, jazz, metal, pop, reggae, rock)</h3>
+        <p>This application uses a neural network to classify the top 3 genres of the uploaded audio file. Please upload an audio file to get started.</p>
         <form method="POST" action="" enctype="multipart/form-data">
-            <p><input type="file" name="file"></p>
+            <p><input type="file" name="file" accept="audio/*" required></p>
             <p><input type="submit" value="Predict"></p>
         </form>
-        <ul>
-            {% for row in genres %}
-                <li>{{ row[0] }}: {{row[1]}}</li>
-            {% endfor %}
-        </ul>
+        {% if filename %}
+            <h4>File selected: {{ filename }}</h4>
+            <p>The Top 3 genres for the selected file with their confidence values are:</p>
+            <div class="predictions-block">
+                <ul class="predictions">
+                    {% for row in genres %}
+                        <li>{{ row[0] }}: {{ '%.4f' | format(row[1]) }}</li>
+                    {% endfor %}
+                </ul>
+        
+        {% else %}
+            <p>No file uploaded yet. Please upload an audio file to see its top 3 genres.</p>
+        {% endif %}
         {% for file in files %}
             <audio controls>
                 <source src="{{ url_for('serve_audio', filename=file) }}">
             </audio>
         {% endfor %}
+        <footer class="footer">
+            <p><strong>Top-n Music Genre Classification Neural Network.</strong> 
+                By: Juan Pablo Duque Ochoa, Jonathan Louangrath, Efe Torunoglu.</p>
+                <p>Capstone Project CS467 - Summer 2024.
+                Oregon State University.</p>
+        </footer>
+        </div>
     </body>
 </html>
 

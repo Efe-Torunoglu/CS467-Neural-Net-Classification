@@ -1,2 +1,6 @@
 # Ignore env directory
 env/
+.vercel
+
+# Ignore Python cache files
+__pycache__/
